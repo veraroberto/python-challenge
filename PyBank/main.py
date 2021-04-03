@@ -15,15 +15,21 @@ greates_decrease = 0
 month_decrease = ""
 
 # se tiene que checar como accesar el dato de otra forma
-previous_month = 867884
+
 
 with open(resources_file) as csvfile:
    csv_reader = csv.reader(csvfile, delimiter=",")
    #HEADER
    csv_header = next(csvfile)
-   print(csv_header)
+
+   row_count = 0
 
    for row in csv_reader:
+       #Determine the First Value
+       if row_count == 0:
+           previous_month = float(row[1])
+           row_count += 1
+
        
        total_profit = total_profit + float(row[1])
        count_months += 1
@@ -66,7 +72,9 @@ with open(output_path, 'w', newline='') as csvfile:
 
     # Write the first row (column headers)
     csvwriter.writerow(['Financial Analysis'])
+
     csvwriter.writerow(['----------------------------'])
+    #csvwriter.writerows([csv_header])
     csvwriter.writerow([f'Total Months: {count_months}'])
     csvwriter.writerow([f'Average Change: {average_changes}'])
     csvwriter.writerow([f'Greatest Increase in Profits: {month_increase} {greates_increase}'])

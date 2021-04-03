@@ -14,9 +14,6 @@ month_increase = ""
 greates_decrease = 0 
 month_decrease = ""
 
-# se tiene que checar como accesar el dato de otra forma
-
-
 with open(resources_file) as csvfile:
    csv_reader = csv.reader(csvfile, delimiter=",")
    #HEADER
@@ -56,10 +53,12 @@ average_changes = sum_dif /(count_months - 1)
 print("Financial Analysis")
 print("---------------------------------------------")
 print(f'Total Months: {count_months}')
+
 print(f'Total ${total_profit}')
-print(f'Average Change: {average_changes}')
-print(f'Greatest Increase in Profits:  {month_increase} {greates_increase}')
-print(f'Greatest Decrease in Profits: {month_decrease} {greates_decrease}')
+print('Average Change: '+ "{:,.2f}".format(average_changes))
+
+print('Greatest Increase in Profits: ' + str(month_increase) +" " + "{:,.0f}".format(greates_increase))
+print('Greatest Decrease in Profits: '+ str(month_decrease) + " " + "{:,.0f}".format(greates_decrease))
 
 #Write file
 output_path = os.path.join("Analysis","Results.csv")
@@ -77,5 +76,6 @@ with open(output_path, 'w', newline='') as csvfile:
     #csvwriter.writerows([csv_header])
     csvwriter.writerow([f'Total Months: {count_months}'])
     csvwriter.writerow([f'Average Change: {average_changes}'])
+    #csvwriter.writerow([f'Average Change: {:10.4f}'])
     csvwriter.writerow([f'Greatest Increase in Profits: {month_increase} {greates_increase}'])
     csvwriter.writerow([f'Greatest Decrease in Profits: {month_decrease} {greates_decrease}'])
